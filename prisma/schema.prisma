@@ -25,7 +25,7 @@ model artists {
     name     String
     grade    Int
     awards   String[]
-    sns_list Json[]
+    sns_list Json
 }
 
 model work_info {
