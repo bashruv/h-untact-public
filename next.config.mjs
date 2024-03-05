@@ -4,7 +4,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "*.public.blob.vercel-storage.com",
+        hostname: "hello-untact-r2.bashruv.dev",
         port: "",
         pathname: "/**",
       },

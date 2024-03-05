@@ -7,7 +7,7 @@ function Grid({ children }: { children: React.ReactNode }) {
 }
 
 async function Item(props: work_list) {
-  const { id, title, artist_id, artist_footnote, thumbnail } = props;
+  const { id, title, artist_id, artist_name, thumbnail } = props;
 
   const artist = await prisma.artists.findUnique({
     where: { id: artist_id },
@@ -18,7 +18,7 @@ async function Item(props: work_list) {
       <Image src={thumbnail} alt={title} width={200} height={200} />
       <p>{title}</p>
       <p>
-        <span>{artist.name}</span>
+        <span>{artist?.name || artist_id}</span>
       </p>
     </div>
   );
