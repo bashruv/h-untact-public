@@ -39,7 +39,7 @@ model artists {
 }
 
 model artist_sns {
-    id        Int     @id
+    id        Int     @id @default(autoincrement())
     artist_id Int
     platform  String
     url       String
