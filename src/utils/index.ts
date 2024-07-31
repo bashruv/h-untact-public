@@ -28,3 +28,7 @@ export function randomString() {
 export const gradeValue = [3, 2, 1];
 
 export const workTypeValue = ["D", "I", "M"];
+
+export function generateNodeID(type: string, grade: string) {
+  return `${type}-${grade}`;
+}

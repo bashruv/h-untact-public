@@ -12,7 +12,6 @@ export function ArchiveSearch({ params }: { params: string | undefined }) {
 
     const searchValue = formData.get("searchValue") as string;
 
-    console.log(`/archive?q=${searchValue}`);
     if (!searchValue) {
       redirect("/archive");
     } else {

@@ -2,13 +2,19 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ReactNode, Suspense, useEffect, useRef, useState } from "react";
 import { Prisma } from "@prisma/client";
+import { ReactNode, Suspense, useEffect, useRef, useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { archiveList } from "@/lib/prisma/transaction";
+import {
+  generateNodeID,
+  getWorkType,
+  gradeValue,
+  workTypeValue,
+} from "@/utils";
 
 import archive_grid from "@/styles/archive-grid.module.scss";
-import { getWorkType, gradeValue, workTypeValue } from "@/utils";
 
 type Archive =
   Prisma.PromiseReturnType<typeof archiveList> extends Array<infer U>
@@ -30,15 +36,20 @@ export function Wrap({ children, query, lastWrap }: WrapProps) {
   const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (wrapRef.current) {
-      setHeight(wrapRef.current.clientHeight);
+    function handleHeight() {
+      if (wrapRef.current) {
+        setHeight(wrapRef.current.clientHeight);
+      }
     }
-  }, [wrapHeight]);
+    window.addEventListener("resize", handleHeight);
+    handleHeight();
+    return () => window.removeEventListener("resize", handleHeight);
+  }, [wrapRef]);
 
   return (
     <>
       <div
-        id={`${query.type}-${query.grade}`}
+        id={generateNodeID(query.type, query.grade.toString())}
         className={archive_grid.wrap}
         ref={wrapRef}
       >
@@ -56,6 +67,12 @@ export function Wrap({ children, query, lastWrap }: WrapProps) {
 }
 
 export function Head({ query }: { query: Archive["query"] }) {
+  const path = usePathname();
+  const router = useRouter();
+  const param = useSearchParams().get("q");
+
+  console.log(query);
+
   function handleSelectWidth() {
     switch (query.type) {
       case "D":
@@ -68,11 +85,17 @@ export function Head({ query }: { query: Archive["query"] }) {
   }
 
   function handleHref({ type, grade }: { type?: string; grade?: string }) {
-    window.location.href = `/archive#${type || query.type}-${grade || query.grade}`;
+    router.replace(
+      `${path}${param ? `?q=${encodeURIComponent(param)}` : ""}#${generateNodeID(type || query.type, grade || query.grade.toString())}`,
+    );
   }
 
   return (
     <div className={archive_grid.head}>
+      <p>
+        {query.grade}
+        {query.type}
+      </p>
       <select
         defaultValue={query.grade}
         onChange={(e) => {
