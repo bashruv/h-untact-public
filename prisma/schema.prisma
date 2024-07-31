@@ -21,7 +21,7 @@ model work_list {
     thumbnail   String
     images      String[]
     yt_url      String?
-    desc        String
+    desc        String?
     artist      artists  @relation(fields: [artist_id], references: [id])
 
     @@index([title, type])
