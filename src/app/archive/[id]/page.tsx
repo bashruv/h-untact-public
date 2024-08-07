@@ -2,7 +2,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { generateRandomString } from "@/utils";
 import { work } from "@/api/prisma/transaction";
 import { SNSButton } from "@/components/sns-button";
 import { CloseButton } from "@/components/close-button";
