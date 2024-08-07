@@ -23,7 +23,7 @@ export function usePopup() {
 }
 
 export function Popup() {
-  const [{ open, title, component }] = usePopup();
+  const [{ open, title, component }, setPopup] = usePopup();
 
   return (
     open && (
@@ -38,7 +38,10 @@ export function Popup() {
             >
               <Image src={questionIcon} alt="Question Icon" />
             </Link>
-            <button className="flex h-14 w-14 items-center justify-center">
+            <button
+              className="flex h-14 w-14 items-center justify-center"
+              onClick={() => setPopup({ open: false, component: null })}
+            >
               <Image src={closeIcon} alt="Close Icon" width={20} height={20} />
             </button>
           </div>
