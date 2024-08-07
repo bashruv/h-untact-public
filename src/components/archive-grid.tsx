@@ -6,13 +6,9 @@ import { Prisma } from "@prisma/client";
 import { ReactNode, Suspense, useEffect, useRef, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { archiveList } from "@/lib/prisma/transaction";
-import {
-  generateNodeID,
-  getWorkType,
-  gradeValue,
-  workTypeValue,
-} from "@/utils";
+import { archiveList } from "@/api/prisma/transaction";
+import { generateNodeID, getWorkType } from "@/utils";
+import { gradeValue, workTypeValue } from "@/constants";
 
 import archive_grid from "@/styles/archive-grid.module.scss";
 
@@ -67,11 +63,12 @@ export function Wrap({ children, query, lastWrap }: WrapProps) {
 }
 
 export function Head({ query }: { query: Archive["query"] }) {
+  const [type, setType] = useState(query.type);
+  const [grade, setGrade] = useState(query.grade);
+
   const path = usePathname();
   const router = useRouter();
   const param = useSearchParams().get("q");
-
-  console.log(query);
 
   function handleSelectWidth() {
     switch (query.type) {
@@ -90,18 +87,22 @@ export function Head({ query }: { query: Archive["query"] }) {
     );
   }
 
+  useEffect(() => {
+    setType(query.type);
+  }, [query.type]);
+
+  useEffect(() => {
+    setGrade(query.grade);
+  }, [query.grade]);
+
   return (
     <div className={archive_grid.head}>
-      <p>
-        {query.grade}
-        {query.type}
-      </p>
       <select
-        defaultValue={query.grade}
+        value={grade}
         onChange={(e) => {
-          if (e.currentTarget.value !== query.grade.toString()) {
+          if (e.currentTarget.value !== grade.toString()) {
             handleHref({ grade: e.currentTarget.value });
-            e.currentTarget.value = query.grade.toString();
+            e.currentTarget.value = grade.toString();
           }
         }}
         className="bg-transparent"
@@ -113,11 +114,11 @@ export function Head({ query }: { query: Archive["query"] }) {
         ))}
       </select>
       <select
-        defaultValue={query.type}
+        value={type}
         onChange={(e) => {
-          if (e.currentTarget.value !== query.type) {
+          if (e.currentTarget.value !== type) {
             handleHref({ type: e.currentTarget.value });
-            e.currentTarget.value = query.type;
+            e.currentTarget.value = type;
           }
         }}
         className="bg-transparent"

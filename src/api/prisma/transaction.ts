@@ -1,5 +1,5 @@
-import prisma from "@/lib/prisma";
-import { gradeValue, workTypeValue } from "@/utils";
+import prisma from "@/api/prisma";
+import { gradeValue, workTypeValue } from "@/constants";
 
 export async function archiveList() {
   const queries = workTypeValue.flatMap((type) =>

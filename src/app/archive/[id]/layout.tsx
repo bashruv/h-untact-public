@@ -1,4 +1,4 @@
-import { workForMetadata } from "@/lib/prisma/transaction";
+import { workForMetadata } from "@/api/prisma/transaction";
 import { Metadata } from "next";
 
 interface MetadataProps {

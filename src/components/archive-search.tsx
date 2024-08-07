@@ -1,24 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 
+import { getSearch } from "@/api/form";
 import searchIcon from "@/assets/search.svg";
 import questionIcon from "@/assets/question.svg";
 import { HUntactArrow } from "@/assets/h-untact-arrow";
-import { redirect } from "next/navigation";
 
 export function ArchiveSearch({ params }: { params: string | undefined }) {
-  async function getSearch(formData: FormData) {
-    "use server";
-
-    const searchValue = formData.get("searchValue") as string;
-
-    if (!searchValue) {
-      redirect("/archive");
-    } else {
-      redirect(`/archive?q=${encodeURIComponent(searchValue)}`);
-    }
-  }
-
   return (
     <div className="fixed bottom-0 flex w-full border">
       <Link href="/" className="group bg-grayscale-dark">
@@ -27,18 +15,18 @@ export function ArchiveSearch({ params }: { params: string | undefined }) {
       </Link>
       <form className="flex flex-1" action={getSearch}>
         <input
-          className="flex-1 bg-grayscale-dark px-4 pb-px text-18px focus:outline-none"
+          className="w-full bg-grayscale-dark px-4 pb-px text-18px focus:outline-none"
           placeholder="작가 또는 작품명 검색..."
           name="searchValue"
           defaultValue={params}
         />
-        <button className="border-l" type="submit">
+        <button className="flex-shrink-0 border-l" type="submit">
           <Image src={searchIcon} alt="Search Icon" />
         </button>
       </form>
-      <button className="border-l">
+      <Link href="/info" target="_blank" className="flex-shrink-0 border-l">
         <Image src={questionIcon} alt="Question Icon" />
-      </button>
+      </Link>
     </div>
   );
 }

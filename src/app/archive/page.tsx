@@ -1,4 +1,4 @@
-import { archiveList, archiveListWithSearch } from "@/lib/prisma/transaction";
+import { archiveList, archiveListWithSearch } from "@/api/prisma/transaction";
 import * as ArchiveGrid from "@/components/archive-grid";
 import { ArchiveSearch } from "@/components/archive-search";
 

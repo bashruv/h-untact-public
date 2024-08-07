@@ -1,3 +1,4 @@
+import { Popup } from "@/components/popup";
 import type { Metadata, Viewport } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body
         className={`${notoSansKr.className} bg-grayscale-pure-black text-grayscale-white`}
       >
+        <Popup />
         {children}
       </body>
     </html>

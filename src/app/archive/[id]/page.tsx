@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-import { randomString } from "@/utils";
-import { work } from "@/lib/prisma/transaction";
+import { generateRandomString } from "@/utils";
+import { work } from "@/api/prisma/transaction";
 import { SNSButton } from "@/components/sns-button";
 import { CloseButton } from "@/components/close-button";
 import { DetailImageView } from "@/components/detail-image";
@@ -74,7 +74,7 @@ export default async function DetailPage({
               {otherWorks.map((val) => (
                 <Link
                   className="border border-grayscale-white"
-                  key={`${val.title}-${randomString()}`}
+                  key={val.id}
                   href={`/archive/${val.id}`}
                   target="_blank"
                 >
