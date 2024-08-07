@@ -358,8 +358,8 @@ export default function Home() {
         </section>
       ) : (
         <>
-          <Link className="absolute -mb-px -mt-px" href="/archive">
-            <LobbyObject className="-mb-px -mt-px" />
+          <Link className="absolute -ml-px -mt-px" href="/archive">
+            <LobbyObject />
           </Link>
           <button
             className="-mb-px -mt-px"
