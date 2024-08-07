@@ -265,7 +265,7 @@ export function verifyRequiredHTMLTemplate(token: string) {
               >
                 아래 링크를 클릭하여 본인인증을 진행하여 주시길 바랍니다.
                 <br />
-                <a href="https://h-untact.ruvz.sh/info/verification?token=${token}" target="_blank">본인인증하기</a>
+                <a href="https://h-untact.ruvz.sh/verification?token=${token}" target="_blank">본인인증하기</a>
               </td>
             </tr>
           </table>
