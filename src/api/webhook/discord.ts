@@ -13,17 +13,24 @@ export async function sendDiscordWebhook(data: DiscordWebhookProps) {
       {
         title,
         description: `${desc}`,
-        color: null,
-        fields: [
-          {
-            name: "이메일 주소",
-            value: email,
-          },
-          fileName && {
-            name: "파일명",
-            value: fileName,
-          },
-        ],
+        color: 16777215,
+        fields: fileName
+          ? [
+              {
+                name: "이메일 주소",
+                value: email,
+              },
+              {
+                name: "파일명",
+                value: fileName,
+              },
+            ]
+          : [
+              {
+                name: "이메일 주소",
+                value: email,
+              },
+            ],
         author: {
           name: `${getInquiryType(type)}`,
         },

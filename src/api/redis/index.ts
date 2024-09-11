@@ -70,3 +70,13 @@ export async function removeToken(token: string) {
     return false;
   }
 }
+
+export async function cronRedisDB() {
+  try {
+    await client.ping();
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}
